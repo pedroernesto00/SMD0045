@@ -1,6 +1,7 @@
 from random import choices, shuffle
 import pandas as pd
 import numpy as np
+import sys
 import os
 from time import sleep
 
@@ -213,10 +214,11 @@ class User:
 
 class FutSimulator:
     
-    def __init__(self):
+    def __init__(self, path='brasileirao2020.csv'):
+        self.load_championship(path)
         self.start()
 
-    def load_championship(self, path = 'brasileirao2020.csv'):
+    def load_championship(self, path):
         self.clubs = []
 
         with open(path, 'r') as br:
@@ -229,7 +231,7 @@ class FutSimulator:
     def create_user(self):
         name = str(input('Entre o nome do Técnico: '))
 
-        print('Qual time você deseja treinar no Campeonato Brasileiro?')
+        print('Qual time você deseja treinar no campeonato?')
 
         i = 1
         for club in self.clubs:
@@ -273,7 +275,7 @@ class FutSimulator:
 
     def final_message(self):
         if self.show_current_position() == 1:
-            print(f'PARABÉNS!!!! O {self.user.club.name.upper()} É O MAIS NOVO CAMPEÃO DO CAMPEONATO BRASILEIRO!!!')
+            print(f'PARABÉNS!!!! O {self.user.club.name.upper()} É O MAIS NOVO CAMPEÃO !!!')
             print(f'O técnico {self.user.name} afirma \"Esse grupo é maravilhoso e esse título veio para coroar um trabalho muito bem feito\" ') 
         else:
             print(f'Que pena, não foi dessa vez que você foi campeão, o {self.user.club.name} ficou apenas em {self.show_current_position()}º!')
@@ -298,7 +300,7 @@ class FutSimulator:
 
             print(f'Próxima partida:\n{self.show_next_match()}\n')
 
-            print('O que desejar fazer agora?\n 1. Jogar Próxima Partida\n 2. Jogos da Rodada\n 3. Visualizar Classificação\n 4. Simular todos os jogos restantes\n 5. Sair (o jogo atual não será salvo)\n')
+            print('O que deseja fazer agora?\n 1. Jogar Próxima Partida\n 2. Jogos da Rodada\n 3. Visualizar Classificação\n 4. Simular todos os jogos restantes\n 5. Sair (o jogo atual não será salvo)\n')
             choice = int(input('Entre a opção desejada:' ))
 
             if choice == 1:
@@ -324,9 +326,10 @@ class FutSimulator:
         quit()
 
     def start(self):
-        self.load_championship()
         self.create_user()
         self.main_menu()
-            
-jogo1 = FutSimulator()
 
+if len(sys.argv) == 1:
+    FutSimulator()
+else:
+    FutSimulator(sys.argv[1])
