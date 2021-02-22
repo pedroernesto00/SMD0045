@@ -13,5 +13,6 @@ Há 3 campeonatos disponíveis, em forma de CSV:
   2. Campeonato Inglês: ingles2021.csv
   3. Campeonato Espanhol: espanhol2021.csv
   
-Para executar: \\
+Para executar:
+
   python fut_simulator.py planilha.csv (caso nao seja passado o caminho para a planilha, será executado o campeonato brasileiro) 
